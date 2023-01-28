@@ -13,7 +13,11 @@ import { TextInput } from "../components/FormLib";
 import { FiMail, FiLock, FiUser } from "react-icons/fi";
 import * as Yup from "yup";
 import { Bars } from "react-loader-spinner";
-const SignUp = () => {
+import { connect } from "react-redux";
+import { signUpUser } from "../auth/actions/userActions";
+import { useNavigate} from "react-router-dom"
+const SignUp = ({signUpUser}) => {
+  const history=useNavigate();
   return (
     <div>
       <StyledFormArea>
@@ -30,8 +34,9 @@ const SignUp = () => {
             password: "",
             retypepassword: "",
           }}
-          onSubmit={(values, { setSubmitting }) => {
+          onSubmit={(values, { setFieldError,setSubmitting }) => {
             console.log(values);
+            signUpUser(values,history,setFieldError,setSubmitting )
           }}
           validationSchema={Yup.object({
             name: Yup.string().required("required").max(30, "too long"),
@@ -95,7 +100,7 @@ const SignUp = () => {
                   </StyledFormButton>
                 )}
               </ButtonGroup>
-              <StyledTextLink size={10} to="/signup">
+              <StyledTextLink size={10} to="/login">
                 <StyledExtraText size={10}>
                   Already have account?
                 </StyledExtraText>
@@ -108,4 +113,4 @@ const SignUp = () => {
     </div>
   );
 };
-export default SignUp;
+export default connect(null,{signUpUser})(SignUp);

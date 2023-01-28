@@ -14,7 +14,11 @@ import { TextInput } from "../components/FormLib";
 import { FiMail, FiLock } from "react-icons/fi";
 import * as Yup from "yup";
 import { Bars } from "react-loader-spinner";
-const Login = () => {
+import { connect } from "react-redux";
+import { loginUser } from "../auth/actions/userActions";
+import { useNavigate} from "react-router-dom"
+const Login = ({loginUser}) => {
+  const history=useNavigate();
   return (
     <div>
       <StyledFormArea>
@@ -29,8 +33,9 @@ const Login = () => {
             email: "",
             password: "",
           }}
-          onSubmit={(values, { setSubmitting }) => {
+          onSubmit={(values, { setFieldError,setSubmitting }) => {
             console.log(values);
+            loginUser(values,history,setFieldError,setSubmitting )
           }}
           validationSchema={Yup.object({
             email: Yup.string()
@@ -71,7 +76,7 @@ const Login = () => {
                   />
                 )}
                 {!isSubmitting && (
-                  <StyledFormButton type="submit" to="/login">
+                  <StyledFormButton type="submit" to="/dashboard">
                     Login
                   </StyledFormButton>
                 )}
@@ -89,4 +94,4 @@ const Login = () => {
     </div>
   );
 };
-export default Login;
+export default connect(null,{loginUser})(Login);
