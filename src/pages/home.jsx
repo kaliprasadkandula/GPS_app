@@ -5,7 +5,7 @@ const Home=()=>{
             <div>      
             </div>
             <StyledTitle size={35}>
-                Gps Summary page
+                Gps Home page
             </StyledTitle>
             <StyledSubTitle size={15}>
                 feel free to explore

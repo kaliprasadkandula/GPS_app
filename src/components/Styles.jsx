@@ -27,7 +27,7 @@ export const StyledContainer = styled.div`
 export const StyledTitle = styled.h2`
   font-size: ${(props) => props.size}px;
   text-align: center;
-  color: ${(props) => (props.color ? props.color : colors.primary)};
+  color: ${(props) => (props.color ? props.color : "Black")};
   padding: 5px;
   margin-bottom: 10px;
 `;
@@ -36,7 +36,7 @@ export const StyledSubTitle = styled.p`
   font-size: ${(props) => props.size}px;
   text-align: center;
   font-weight: bold;
-  color: ${(props) => (props.color ? props.color : colors.primary)};
+  color: ${(props) => (props.color ? props.color : "Black")};
   padding: 5px;
   margin-bottom: 15px;
 `;
@@ -76,7 +76,7 @@ export const StyledTextInput = styled.input`
   padding-left: 40px;
   font-size: 10px;
   letter-spacing: 1px;
-  color: ${colors.light2};
+  color: ${colors.primary};
   border: 0;
   display: block;
   margin: 5px auto 10px auto;
@@ -99,6 +99,7 @@ export const StyledLabel = styled.p`
   text-align: left;
   font-size: 13px;
   font-weight: bold;
+  color:Black;
 `;
 
 export const StyledFormArea = styled.div`
