@@ -3,10 +3,10 @@ import {
   colors,
   StyledFormArea,
   StyledSubTitle,
-  StyledFormButton,
   StyledExtraText,
   StyledTextLink,
   StyledTitle,
+  buttonn,
 } from "../components/Styles";
 import { Formik, Form } from "formik";
 import { TextInput } from "../components/FormLib";
@@ -28,16 +28,17 @@ const SignUp = ({signUpUser}) => {
           please signup
         </StyledSubTitle>
         <Formik
-          initialValues={{
+          initialValues=          {{
             name: "",
             email: "",
             password: "",
-            retypepassword: "",
+            retypepassword: ""
           }}
+
           onSubmit={(values, { setFieldError,setSubmitting }) => {
-            console.log(values);
             signUpUser(values,history,setFieldError,setSubmitting )
           }}
+
           validationSchema={Yup.object({
             name: Yup.string().required("required").max(30, "too long"),
             email: Yup.string()
@@ -95,9 +96,10 @@ const SignUp = ({signUpUser}) => {
                   />
                 )}
                 {!isSubmitting && (
-                  <StyledFormButton type="submit" to="/login">
+                  /*<StyledFormButton type="submit" to="/">
                     Sign-Up
-                  </StyledFormButton>
+                  </StyledFormButton>*/
+                  <button type="submit" style={buttonn}>signup</button>
                 )}
               </ButtonGroup>
               <StyledTextLink size={10} to="/login">
@@ -112,5 +114,5 @@ const SignUp = ({signUpUser}) => {
       </StyledFormArea>
     </div>
   );
-};
+}; 
 export default connect(null,{signUpUser})(SignUp);

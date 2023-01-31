@@ -1,24 +1,25 @@
 const {DataTypes} = require('sequelize')
 const sequelize = require('../database/sequelize')
 
-const user = sequelize.define('User', {
-  id:{
-    type:DataTypes.BIGINT,
-    autoIncrement: true,
-    primaryKey:true
-  },
-  name:{
+const gpsData = sequelize.define('gps_data', {
+  
+  DeviceId:{
     type:DataTypes.STRING,
     allowNull:false
   },
-  email:{
+  DeviceType:{
     type:DataTypes.STRING,
     allowNull:false
   },
-  password:{
+  Timestamp:{
     type:DataTypes.STRING,
     allowNull:false
   },
+  location:{
+    type:DataTypes.STRING,
+    allowNull:false
+  }
+
 })
 
-module.exports =user
+module.exports =gpsData

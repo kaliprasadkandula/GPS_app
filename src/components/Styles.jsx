@@ -42,23 +42,23 @@ export const StyledSubTitle = styled.p`
 `;
 
 export const StyledButton = styled(Link)`
-margin: 2px;
-padding: 10px;
-width: 80px;
-background-color: transparent;
-font-size: 10px;
-border: 2px solid ${colors.theme};
-border-radius: 10px;
-text-decoration: none;
-text-align: center;
-transition: ease-in-out 0.1s;
-background-color: ${colors.primary};
-color:${colors.theme};
-&:hover {
-  background-color: ${colors.theme};
-  color:${colors.primary};
-  cursor: pointer;
-}
+  margin: 2px;
+  padding: 10px;
+  width: 80px;
+  background-color: transparent;
+  font-size: 10px;
+  border: 2px solid ${colors.theme};
+  border-radius: 10px;
+  text-decoration: none;
+  text-align: center;
+  transition: ease-in-out 0.1s;
+  background-color: ${colors.primary};
+  color: ${colors.theme};
+  &:hover {
+    background-color: ${colors.theme};
+    color: ${colors.primary};
+    cursor: pointer;
+  }
 `;
 
 export const ButtonGroup = styled.div`
@@ -67,7 +67,6 @@ export const ButtonGroup = styled.div`
   flex-direction: row;
   margin-top: 15px;
   font-weight: bold;
-  
 `;
 
 export const StyledTextInput = styled.input`
@@ -99,7 +98,7 @@ export const StyledLabel = styled.p`
   text-align: left;
   font-size: 13px;
   font-weight: bold;
-  color:Black;
+  color: Black;
 `;
 
 export const StyledFormArea = styled.div`
@@ -120,10 +119,10 @@ export const StyledFormButton = styled(Link)`
   text-decoration: none;
   transition: ease-in-out 0.1s;
   background-color: ${colors.primary};
-  color:${colors.theme};
+  color: ${colors.theme};
   &:hover {
     background-color: ${colors.theme};
-    color:${colors.primary};
+    color: ${colors.primary};
     cursor: pointer;
   }
 `;
@@ -166,14 +165,85 @@ export const StyledTextLink = styled(Link)`
     text-decoration: underline;
     font-weight: bold;
     letter-spacing: 1px;
-    font-size:12px;
+    font-size: 12px;
   }
 `;
 
-export const StyledCopyRight=styled.p`
-  padding:5px;
-  margin:2px;
+export const StyledCopyRight = styled.p`
+  padding: 5px;
+  margin: 2px;
   text-align: center;
-  font-size:10px;
+  font-size: 10px;
   color: ${colors.dark1};
-`
+`;
+
+export const buttonn = {
+  margin: "2px",
+  padding: "10px",
+  width: "80px",
+  backgroundColor: "transparent",
+  fontSize: "10px",
+  border: `2px solid ${colors.theme}`,
+  borderRadius: "10px",
+  textDecoration: "none",
+  transition: "ease-in-out 0.1s",
+  backgroundColor: `${colors.primary}`,
+  color: `${colors.theme}`,
+};
+
+
+export const TableWrapper = styled.table`
+  width: 100%;
+  border-collapse: collapse;
+`;
+
+export const TableHead = styled.thead`
+  background-color: #ddd;
+`;
+
+export const TableHeadCell = styled.th`
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-align: left;
+`;
+
+export const TableBody = styled.tbody`
+  background-color: #fff;
+`;
+
+export const TableRow = styled.tr`
+  &:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+`;
+
+export const TableCell = styled.td`
+  padding: 10px;
+  border: 1px solid #ccc;
+`;
+
+export const StyledTable = ({ data }) => {
+  return (
+    <TableWrapper>
+      <TableHead>
+        <TableRow>
+          <TableHeadCell>DeviceId</TableHeadCell>
+          <TableHeadCell>DeviceType</TableHeadCell>
+          <TableHeadCell>LatestTimestamp</TableHeadCell>
+          <TableHeadCell>LatestLocation</TableHeadCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+     
+                        <TableRow key={0}>
+                            <TableCell>{`$`}</TableCell>
+                            <TableCell>{`hi`}</TableCell>
+                            <TableCell>{`hi`}</TableCell>
+                            <TableCell>{`hi`}</TableCell>
+                        </TableRow>
+           
+      </TableBody>
+    </TableWrapper>
+  );
+};
+
