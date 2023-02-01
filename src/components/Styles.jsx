@@ -223,6 +223,7 @@ export const TableCell = styled.td`
 `;
 
 export const StyledTable = ({ data }) => {
+  console.log(data)
   return (
     <TableWrapper>
       <TableHead>
@@ -234,16 +235,28 @@ export const StyledTable = ({ data }) => {
         </TableRow>
       </TableHead>
       <TableBody>
-     
-                        <TableRow key={0}>
-                            <TableCell>{`$`}</TableCell>
-                            <TableCell>{`hi`}</TableCell>
-                            <TableCell>{`hi`}</TableCell>
-                            <TableCell>{`hi`}</TableCell>
-                        </TableRow>
+      {
+         data.map((row,i)=>{return ( <TableRow key={i}>
+          <TableCell>{row.DeviceId}</TableCell>
+          <TableCell>{row.DeviceType}</TableCell>
+          <TableCell>{row.Timestamp}</TableCell>
+          <TableCell>{row.location}</TableCell>
+          </TableRow>)})
+      }
+           
+                        
            
       </TableBody>
     </TableWrapper>
   );
 };
 
+// {
+//   data.map((value, key) =>{
+//     <TableRow key={key}>
+//     <TableCell>{value.DeviceId}</TableCell>
+//     <TableCell>{value.DeviceType}</TableCell>
+//     <TableCell>{value.LatestTimestamp}</TableCell>
+//     <TableCell>{value.LatestLocation}</TableCell>
+//     </TableRow>})
+// }
