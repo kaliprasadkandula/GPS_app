@@ -3,6 +3,7 @@ import Home from "./pages/home";
 import Login from "./pages/login";
 import SignUp from "./pages/signup";
 import Dashboard from "./pages/dashboard";
+import SubDashboard from "./pages/SubDashboard";
 
 //styled component
 import { StyledContainer } from "./components/Styles";
@@ -16,6 +17,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/SubDashboard" element={<SubDashboard />} />
         </Routes>
       </Router>
     </StyledContainer>

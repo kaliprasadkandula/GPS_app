@@ -228,19 +228,22 @@ export const StyledTable = ({ data }) => {
     <TableWrapper>
       <TableHead>
         <TableRow>
-          <TableHeadCell>DeviceId</TableHeadCell>
-          <TableHeadCell>DeviceType</TableHeadCell>
-          <TableHeadCell>LatestTimestamp</TableHeadCell>
-          <TableHeadCell>LatestLocation</TableHeadCell>
+          {
+            Object.keys(data[0]).map((key,j) =>{
+              return <TableHeadCell key={j}>{key}</TableHeadCell>
+            })
+          }
+          
         </TableRow>
       </TableHead>
       <TableBody>
       {
          data.map((row,i)=>{return ( <TableRow key={i}>
-          <TableCell>{row.DeviceId}</TableCell>
-          <TableCell>{row.DeviceType}</TableCell>
-          <TableCell>{row.Timestamp}</TableCell>
-          <TableCell>{row.location}</TableCell>
+          {
+            Object.values(row).map((key,j) =>{
+              return <TableHeadCell key={j}>{key}</TableHeadCell>
+            })
+          }          
           </TableRow>)})
       }
            
@@ -250,13 +253,3 @@ export const StyledTable = ({ data }) => {
     </TableWrapper>
   );
 };
-
-// {
-//   data.map((value, key) =>{
-//     <TableRow key={key}>
-//     <TableCell>{value.DeviceId}</TableCell>
-//     <TableCell>{value.DeviceType}</TableCell>
-//     <TableCell>{value.LatestTimestamp}</TableCell>
-//     <TableCell>{value.LatestLocation}</TableCell>
-//     </TableRow>})
-// }
