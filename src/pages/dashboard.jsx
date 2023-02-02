@@ -10,7 +10,7 @@ const Dashboard = () => {
   const [isLoading, setLoading] = useState(true);
 
   const fetchData=async() =>{
-    await axios.get('http://localhost:4000/dashboard/')
+    await axios.post('http://localhost:4000/dashboard/getAll')
     .then(async(response)=>{
      const json = await response.data;
      const dd=json.data[0]
