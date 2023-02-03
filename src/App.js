@@ -17,7 +17,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/SubDashboard" element={<SubDashboard />} />
+          <Route path="/dashboard/:DeviceId" element={<SubDashboard />} />
         </Routes>
       </Router>
     </StyledContainer>

@@ -16,11 +16,34 @@ import * as Yup from "yup";
 import { Bars } from "react-loader-spinner";
 import { connect } from "react-redux";
 import { loginUser } from "../auth/actions/userActions";
-import { useNavigate} from "react-router-dom"
-const Login = ({loginUser}) => {
-  const history=useNavigate();
+import { Navigate  } from 'react-router-dom'
+import {navigate, useState } from "react"
+import axios from "axios"
+const Login = (props) => {
+  const [error, setError] = useState(null);
+  const [isSubmitting, setSubmitting] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  
+  const handleLogin = async (values) => {
+    try {
+      setSubmitting(true);
+      const response = await axios.post("http://localhost:4000/user/login", values);
+      
+      if (response.data.status === "SUCCESS") {
+        setIsAuthenticated(true);
+        navigate("/dashboard");
+      } else {
+        console.log(`authentication is failed`)
+        setError("Incorrect email or password");
+        setSubmitting(false);
+      }
+    } catch (error) {
+      setError("An error occurred while logging in");
+      setSubmitting(false);
+    }
+  };
   return (
-    <div>
+    <>{(!isAuthenticated)&&<div>
       <StyledFormArea>
         <StyledTitle size={15} color={colors.theme}>
           Welcome to GPS data analytics
@@ -33,9 +56,9 @@ const Login = ({loginUser}) => {
             email: "",
             password: "",
           }}
-          onSubmit={(values, { setFieldError,setSubmitting }) => {
-            console.log(values);
-            loginUser(values,history,setFieldError,setSubmitting )
+          onSubmit={async(values, { setFieldError,setSubmitting }) => {
+            handleLogin(values);
+            
           }}
           validationSchema={Yup.object({
             email: Yup.string()
@@ -76,9 +99,9 @@ const Login = ({loginUser}) => {
                   />
                 )}
                 {!isSubmitting && (
-                  <StyledFormButton type="submit" to="/dashboard">
+                  <button type="submit" >
                     Login
-                  </StyledFormButton>
+                  </button>
                 )}
               </ButtonGroup>
             </Form>
@@ -92,6 +115,10 @@ const Login = ({loginUser}) => {
         </StyledCopyRight>
       </StyledFormArea>
     </div>
+   
+    }{ (isAuthenticated)&&<Navigate  to="/dashboard"/>}
+    </>
   );
 };
-export default connect(null,{loginUser})(Login);
+// export default connect(null,{loginUser})(Login);
+export default Login;

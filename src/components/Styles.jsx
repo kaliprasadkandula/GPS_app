@@ -233,6 +233,43 @@ export const StyledTable = ({ data }) => {
               return <TableHeadCell key={j}>{key}</TableHeadCell>
             })
           }
+          <TableHeadCell> </TableHeadCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+      {
+         data.map((row,i)=>{return ( <TableRow key={i}>
+          {
+            Object.values(row).map((key,j) =>{
+              return <TableHeadCell key={j}>{key}</TableHeadCell>
+            })
+          }<TableHeadCell> <Link to={{
+            pathname:`/dashboard/${row.DeviceId}`,
+            
+          }} state={{data:row.DeviceId}} >{`--`}</Link></TableHeadCell>
+      
+          </TableRow>)})
+      }
+           
+                        
+           
+      </TableBody>
+    </TableWrapper>
+  );
+};
+
+
+export const StyledTable2 = ({ data }) => {
+  console.log(data)
+  return (
+    <TableWrapper>
+      <TableHead>
+        <TableRow>
+          {
+            Object.keys(data[0]).map((key,j) =>{
+              return <TableHeadCell key={j}>{key}</TableHeadCell>
+            })
+          }
           
         </TableRow>
       </TableHead>
@@ -253,3 +290,23 @@ export const StyledTable = ({ data }) => {
     </TableWrapper>
   );
 };
+
+
+export const Container = styled.div`
+display: flex;
+justify-content: space-between;
+width: 80%;
+margin: 0 auto;
+`;
+
+export const LeftDiv = styled.div`
+  width: 40%;
+  align-items: center;
+  float: left;
+`;
+
+export const RightDiv = styled.div`
+  width: 40%;
+  float: right;
+`;
+

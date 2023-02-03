@@ -39,9 +39,9 @@ router.post('/getAll',async  (req, res)=>{
 })
 
 
-router.post('/percentages',async  (req, res)=>{
-    let {DeviceId,DeviceType} = req.body;
-  
+router.get('/percentages/:id',async  (req, res)=>{
+    let DeviceId = req.params.id;
+    console.log(DeviceId)
     const gpsData = await sequelize
     .query(
         `
@@ -49,7 +49,7 @@ router.post('/percentages',async  (req, res)=>{
         WITH flight_locations AS (
             SELECT location, COUNT(location) AS location_count
             FROM dummy.dbo.[gps_data]
-            WHERE DeviceId='D-1569'
+            WHERE DeviceId='${DeviceId}'
             GROUP BY location
         )
         SELECT location, ROUND(CAST(100.0 * location_count / SUM(location_count) OVER() AS DECIMAL(10, 2)), 2)  AS location_percentage
@@ -73,13 +73,13 @@ router.post('/percentages',async  (req, res)=>{
 })
 
 
-router.post('/locations',async  (req, res)=>{
-    let {DeviceId,DeviceType} = req.body;
+router.get('/locations/:id',async  (req, res)=>{
+    let DeviceId = req.params.id;
   
     const gpsData = await sequelize
     .query(
         `
-        SELECT location,convert(varchar(20),Timestamp,120) as Timestamp FROM dummy.dbo.[gps_data] where DeviceId ='D-1567' order by Timestamp;
+        SELECT location,convert(varchar(20),Timestamp,120) as Timestamp FROM dummy.dbo.[gps_data] where DeviceId ='${DeviceId}' order by Timestamp desc;
         `
     )
     

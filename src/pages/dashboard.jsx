@@ -1,5 +1,6 @@
 import {
   
+  Container,
   StyledTable
 } from "./../components/Styles";
 import React, { useState, useEffect } from 'react';
@@ -24,9 +25,11 @@ const Dashboard = () => {
   useEffect(() => {fetchData()}, []);
   return (
     (!isLoading)&&
+    <Container>
     <StyledTable data={abc}>
 
     </StyledTable>
+    </Container>
   )
 };
 export default Dashboard;
