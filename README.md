@@ -18,6 +18,6 @@ now move to the project location in your terminal
 
 now you are all set to run the project,to run the project please enter the below command
 
-###`gps_app>yarn start`
+### `gps_app>yarn start`
 
 Now this will start the application in port 3000
