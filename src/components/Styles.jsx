@@ -48,15 +48,19 @@ export const StyledTitle = styled.h2`
 
   margin-bottom: 10px;
 `;
-/*export const StyledSubTitle = styled.p`
-  font-size: ${(props) => props.size}px;
+export const StyledSubTitle = styled.p`
+  font-size:30px;
   text-align: center;
   font-weight: bold;
   color: ${(props) => (props.color ? props.color : "Black")};
   padding: 5px;
   margin-bottom: 15px;
+  background-color: ${colors.primary};
+  border-top-right-radius:10px;
+  border-bottom-right-radius:10px;
+
 `;
-*/
+
 
 export const StyledButton = styled(Link)`
   margin: 2px;

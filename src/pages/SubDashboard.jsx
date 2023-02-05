@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Chart from "react-apexcharts";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { Container, LeftDiv, RightDiv, MainTable3 } from "../components/Styles";
+import { Container, LeftDiv, RightDiv, MainTable3 ,StyledSubTitle,StyledExtraText} from "../components/Styles";
 const SubDashboard = () => {
   const [data2, setData2] = useState([]);
   const [labels, setLables] = useState([]);
@@ -41,6 +41,8 @@ const SubDashboard = () => {
   return (
     !isLoading &&
     !isLoading2 && (
+      <>
+      <StyledSubTitle>{`${DeviceId}`}</StyledSubTitle>
       <Container>
         <LeftDiv>
           <div className="rounded-table" style={{ backgroundColor: "black" }}>
@@ -57,8 +59,10 @@ const SubDashboard = () => {
               labels: labels,
             }}
           ></Chart>
+          <StyledExtraText size={13}>{`% of time spent in each location by ${DeviceId}`}</StyledExtraText>
         </RightDiv>
       </Container>
+      </>
     )
   );
 };
