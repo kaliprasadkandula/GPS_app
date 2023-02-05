@@ -1,7 +1,7 @@
 *{
   padding: 0;
   margin: 0;
-  box-sizing: border-box;/*what is the use*/
+  box-sizing: border-box;
 }
 
 body {
@@ -14,4 +14,36 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.table-wrapper {
+  background-color:#1a2b3c;
+}
+
+.table-wrapper table {
+  color: black;
+}
+.rounded-table {
+  border-radius: 10px;
+  overflow: hidden;
+}
+.login_button{
+  margin: 2px;
+  padding: 10px;
+  width: 80px;
+  background-color: transparent;
+  font-size: 10px;
+  border: 2px solid #BE185D;
+  border-radius: 10px;
+  text-decoration: none;
+  text-align: center;
+  transition: ease-in-out 0.1s;
+  background-color: #FFF;
+  color: #BE185D;
+  
+}
+.login_button:hover {
+  background-color: #BE185D;
+  color: #FFF;
+  cursor: pointer;
 }

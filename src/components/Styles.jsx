@@ -1,6 +1,20 @@
 import styled from "styled-components";
 import background from "./../assets/bg.png";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
+
+import { DataTable } from "primereact/datatable";
+import { Column } from "primereact/column";
+import "primereact/resources/primereact.min.css";
+import "primereact/resources/themes/lara-light-purple/theme.css";
+
+import { FilterMatchMode } from "primereact/api";
+import { InputText } from "primereact/inputtext";
+
+import React from "react";
+import { FiSearch } from "react-icons/fi";
 
 export const colors = {
   primary: "#FFF",
@@ -19,7 +33,8 @@ export const StyledContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url(${background});
+  // background-image: url(${background});
+  background-color: #1a2b3c;
   background-size: cover;
   background-attachment: fixed;
 `;
@@ -28,11 +43,12 @@ export const StyledTitle = styled.h2`
   font-size: ${(props) => props.size}px;
   text-align: center;
   color: ${(props) => (props.color ? props.color : "Black")};
-  padding: 5px;
+  padding-bottom: 25px;
+  padding-top: 25px;
+
   margin-bottom: 10px;
 `;
-
-export const StyledSubTitle = styled.p`
+/*export const StyledSubTitle = styled.p`
   font-size: ${(props) => props.size}px;
   text-align: center;
   font-weight: bold;
@@ -40,6 +56,7 @@ export const StyledSubTitle = styled.p`
   padding: 5px;
   margin-bottom: 15px;
 `;
+*/
 
 export const StyledButton = styled(Link)`
   margin: 2px;
@@ -75,7 +92,7 @@ export const StyledTextInput = styled.input`
   padding-left: 40px;
   font-size: 10px;
   letter-spacing: 1px;
-  color: ${colors.primary};
+  color: ${colors.dark1};
   border: 0;
   display: block;
   margin: 5px auto 10px auto;
@@ -102,7 +119,7 @@ export const StyledLabel = styled.p`
 `;
 
 export const StyledFormArea = styled.div`
-  background-color: ${(props) => colors.light2};
+  background-color: ${colors.light2};
   padding: 30px 55px;
   text-align: center;
   border-radius: 15px;
@@ -169,13 +186,14 @@ export const StyledTextLink = styled(Link)`
   }
 `;
 
-export const StyledCopyRight = styled.p`
+/*export const StyledCopyRight = styled.p`
   padding: 5px;
   margin: 2px;
   text-align: center;
   font-size: 10px;
   color: ${colors.dark1};
 `;
+*/
 
 export const buttonn = {
   margin: "2px",
@@ -191,7 +209,7 @@ export const buttonn = {
   color: `${colors.theme}`,
 };
 
-
+/*
 export const TableWrapper = styled.table`
   width: 100%;
   border-collapse: collapse;
@@ -290,13 +308,13 @@ export const StyledTable2 = ({ data }) => {
     </TableWrapper>
   );
 };
-
+*/
 
 export const Container = styled.div`
-display: flex;
-justify-content: space-between;
-width: 80%;
-margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  margin: 0 auto;
 `;
 
 export const LeftDiv = styled.div`
@@ -306,7 +324,154 @@ export const LeftDiv = styled.div`
 `;
 
 export const RightDiv = styled.div`
-  width: 40%;
+  width: 38%;
   float: right;
+  border-radius: 10px;
+  padding-top: 25px;
+  background-color: #ffffff;
 `;
 
+export const MainTable2 = ({ data }) => {
+  const [filters, setFilters] = useState({
+    global: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  });
+  return (
+    <div style={{ width: "1000px", display: "grid", alignItems: "flex-start" }}>
+      <span className="p-input-icon-left">
+        <FiSearch style={{ paddingBottom: "5px" }} />
+        <InputText
+          placeholder="search by DeviceId/DeviceType"
+          className="p-inputtext-sm"
+          style={{ width: "250px", height: "40px", marginBottom: "10px" }}
+          onInput={(e) => {
+            setFilters({
+              global: {
+                value: e.target.value,
+                matchMode: FilterMatchMode.CONTAINS,
+              },
+            });
+          }}
+        />
+      </span>
+      <div className="rounded-table">
+        <DataTable
+          value={data}
+          paginator
+          rows={5}
+          rowsPerPageOptions={[3, 5]}
+          totalRecords={data.length}
+          filters={filters}
+          selectionMode="single"
+          removableSort
+        >
+          <Column
+            field="DeviceId"
+            header="DeviceId"
+            style={{ width: "20%" }}
+            sortable
+          />
+          <Column
+            field="DeviceType"
+            header="DeviceType"
+            sortable
+            style={{ width: "20%" }}
+          />
+          <Column
+            field="Timestamp"
+            header="Latest Timestamp"
+            style={{ width: "20%" }}
+          />
+          <Column
+            field="location"
+            header="Latest Location"
+            style={{ width: "20%" }}
+          />
+          <Column
+            header={"View Details"}
+            style={{ width: "10%" }}
+            body={(rowData) => (
+              <StyledLink
+                to={{
+                  pathname: `/dashboard/${rowData.DeviceId}`,
+                  state: { data: rowData },
+                }}
+              >
+                {" "}
+                <FontAwesomeIcon
+                  icon={faChevronRight}
+                  style={{ marginLeft: 8 }}
+                />
+              </StyledLink>
+            )}
+          />
+        </DataTable>
+      </div>
+    </div>
+  );
+};
+
+export const MainTable3 = ({ data }) => {
+  return (
+    <DataTable value={data} responsiveLayout="scroll">
+      {Object.keys(data[0]).map((key, j) => (
+        <Column key={j} field={key} header={key} />
+      ))}
+    </DataTable>
+  );
+};
+
+const StyledLink = styled(Link)`
+  display: inline-block;
+  padding: 10px 20px;
+
+  background-position: right 10px center;
+  text-decoration: none;
+  color: #333;
+
+  &:focus {
+    outline: none;
+    background-color: #ddd;
+  }
+`;
+
+export const ContainerDiv = () => (
+  <InnerContainer>
+    <Content>
+      <StyledTitle size={25}>Welcome to GPS data analytics</StyledTitle>
+      <ButtonGroup>
+        <StyledButton to="/login">Login</StyledButton>
+        <StyledButton to="/signup">Signup</StyledButton>
+      </ButtonGroup>
+    </Content>
+  </InnerContainer>
+);
+
+export const InnerContainer = styled.div`
+  width: 400px;
+  height: 300px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  background-color: ${colors.light2};
+  @media (max-width: 500px) {
+    flex-direction: column;
+  }
+`;
+
+export const Content = styled.div`
+  width: 250px;
+  height: 250px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding-top: 50px;
+
+  @media (max-width: 500px) {
+    padding-top: 25px;
+
+    width: 150px;
+    height: 150px;
+  }
+`;
