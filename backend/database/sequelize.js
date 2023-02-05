@@ -1,6 +1,6 @@
 const{Sequelize } = require('sequelize');
-
-const sequelize = new Sequelize('dummy', 'sa', 'Dhan1234!',{
+const {DATABASE,USERNAME,PASSWORD} = require('../constants')
+const sequelize = new Sequelize(`${DATABASE}`, `${USERNAME}`, `${PASSWORD}`,{
     dialect: 'mssql',
     host: 'localhost'
 })

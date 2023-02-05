@@ -2,7 +2,7 @@
   "development": {
     "username": "sa",
     "password": "Dhan1234!",
-    "database": "dummy",
+    "database": "dummy_db",
     "host": "127.0.0.1",
     "dialect": "mssql"
   },
