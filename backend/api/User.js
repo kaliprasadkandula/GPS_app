@@ -42,7 +42,7 @@ router.post('/login', async (req, res)=>{
         res.json(getResp("SUCCESS","login was Successful"))
     }
     else{
-         res.json(getResp("FAILED","Login was not Successful"))
+         res.json(getResp("FAILED","credentials not found/Invalid"))
     }
            
     

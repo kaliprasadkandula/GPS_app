@@ -1,15 +1,12 @@
 const express = require('express')
 const router = express.Router();
-const GPSdata = require('../models/gpsdata')
-const bcrypt = require('bcrypt');//lets use it later
+// const bcrypt = require('bcrypt');
 const sequelize =require('../database/sequelize')
 function getResp(status,message,data){
     return {status:status,message:message,data:data};
 }
 router.post('/getAll',async  (req, res)=>{
-    // if(!sequelize){
-    //     console.log(`haiiiiiiiiiiiiiiiiii`)
-    // }
+
     const gpsData = await sequelize
     .query(
         `
@@ -17,38 +14,28 @@ router.post('/getAll',async  (req, res)=>{
         FROM (
         SELECT [DeviceId], [DeviceType],FORMAT(Timestamp,'dd-MM-yyyy hh:mm:ss') as Timestamp, location,
                 ROW_NUMBER() OVER (PARTITION BY DeviceId ORDER BY [Timestamp] DESC) AS row_num
-        FROM dummy.dbo.[gps_data] as gps
+        FROM dummy.dbo.[csv_data2] as gps
         ) AS latest_flights
         WHERE row_num = 1
         `
     )
-    
-   
     if(gpsData){
         res.json(getResp("SUCCESS","found data",gpsData))
     }
-    else{
-        
-        res.json(getResp("FAILED","not found data",null))
-
-           
-    }
-       
-    
-      
+    else{        
+        res.json(getResp("FAILED","not found data",null))           
+    } 
 })
 
 
 router.get('/percentages/:id',async  (req, res)=>{
     let DeviceId = req.params.id;
-    console.log(DeviceId)
     const gpsData = await sequelize
     .query(
         `
-       
         WITH flight_locations AS (
             SELECT location, COUNT(location) AS location_count
-            FROM dummy.dbo.[gps_data]
+            FROM dummy.dbo.[csv_data2]
             WHERE DeviceId='${DeviceId}'
             GROUP BY location
         )
@@ -61,11 +48,8 @@ router.get('/percentages/:id',async  (req, res)=>{
     if(gpsData){
         res.json(getResp("SUCCESS","found data",gpsData))
     }
-    else{
-        
-        res.json(getResp("FAILED","not found data",null))
-
-           
+    else{        
+        res.json(getResp("FAILED","not found data",null))           
     }
        
     
@@ -79,23 +63,16 @@ router.get('/locations/:id',async  (req, res)=>{
     const gpsData = await sequelize
     .query(
         `
-        SELECT location,convert(varchar(20),Timestamp,120) as Timestamp FROM dummy.dbo.[gps_data] where DeviceId ='${DeviceId}' order by Timestamp desc;
+        SELECT convert(varchar(20),Timestamp,120) as Timestamp,location as Location FROM dummy.dbo.[csv_data2] where DeviceId ='${DeviceId}' order by Timestamp desc;
         `
-    )
-    
-   
+    )   
     if(gpsData){
         res.json(getResp("SUCCESS","found data",gpsData))
     }
     else{
-        
-        res.json(getResp("FAILED","not found data",null))
-
-           
-    }
-       
+        res.json(getResp("FAILED","not found data",null))           
+    }      
     
-      
 })
 
 
