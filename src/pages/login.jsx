@@ -14,6 +14,7 @@ import { Bars } from "react-loader-spinner";
 import { Navigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
+import { useEffect } from "react";
 const Login = () => {
   const [isSubmitting, setSubmitting] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -24,6 +25,7 @@ const Login = () => {
       
       if (response.data.status === "SUCCESS") {
         window.alert(response.data.message);
+        window.localStorage.setItem('isAuthenticated','true')
         setIsAuthenticated(true);
       } else {
         window.alert(`${response.data.message},please retry`);
@@ -34,6 +36,7 @@ const Login = () => {
       setSubmitting(false);
     }
   };
+   useEffect(()=>{window.localStorage.setItem('isAuthenticated','false')},[])
   return (
     <>
       {!isAuthenticated && (

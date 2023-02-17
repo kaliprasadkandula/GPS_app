@@ -3,16 +3,19 @@ import Chart from "react-apexcharts";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Container, LeftDiv, RightDiv, MainTable3 ,StyledSubTitle,StyledExtraText} from "../components/Styles";
+import { Navigate } from "react-router-dom";
 const SubDashboard = () => {
   const [data2, setData2] = useState([]);
   const [labels, setLables] = useState([]);
   const [series, setSeries] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const [isLoading2, setLoading2] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(window.localStorage.getItem('isAuthenticated')==='true');
 
   const { DeviceId } = useParams();
 
-  const fetchData = async () => {
+  const fetchData = async (isAuthenticated) => {
+    if(isAuthenticated){
     await axios
       .get(`http://localhost:4000/dashboard/percentages/${DeviceId}`)
       .then(async (response) => {
@@ -34,13 +37,15 @@ const SubDashboard = () => {
         setLoading2(false);
       })
       .catch((error) => console.error(error));
+    }
   };
   useEffect(() => {
-    fetchData();
+    fetchData(isAuthenticated);
   }, []);
   return (
-    !isLoading &&
-    !isLoading2 && (
+    (isAuthenticated)?
+    ((!isLoading) &&
+    (!isLoading2 )&& (
       <>
       <StyledSubTitle>{`${DeviceId}`}</StyledSubTitle>
       <Container>
@@ -64,7 +69,8 @@ const SubDashboard = () => {
       </Container>
       </>
     )
-  );
+  ):(<Navigate to="/login" />)
+  )
 };
 
 export default SubDashboard;
